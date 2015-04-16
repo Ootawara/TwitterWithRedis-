@@ -1,5 +1,7 @@
 package tables;
 
+import java.util.ArrayList;
+
 /**
  * L'utilisateur suit les followers (est abonné)
  * 
@@ -9,23 +11,26 @@ package tables;
 public class Following {
 
     private Username username;
-    private Followers followers;
-    
-    public Following(Username username, Followers followers) {
+    private ArrayList<Username> followers;
+
+    public Following(Username username, ArrayList<Username> followers) {
         this.username = username;
         this.followers = followers;
     }
-    
+
     public Username getUsername() {
         return username;
     }
+
     public void setUsername(Username username) {
         this.username = username;
     }
-    public Followers getFollowers() {
+
+    public ArrayList<Username> getFollowers() {
         return followers;
     }
-    public void setFollowers(Followers followers) {
+
+    public void setFollowers(ArrayList<Username> followers) {
         this.followers = followers;
     }
 }

@@ -7,105 +7,103 @@ import redis.clients.jedis.Jedis;
 
 public class Main {
 
-	private static final Logger log = Logger.getLogger(Main.class);
-	
-	public static void main(String[] args) {
-		// Connection au serveur Redis
-		Jedis jedis = new Jedis("localhost");
-		System.out.println("Connexion au serveur REDIS : " + jedis.ping());
+    private static final Logger log = Logger.getLogger(Main.class);
 
-		// Nom des keys
-		String key1 = "legume";
-		String key2 = "lettre";
+    public static void main(String[] args) {
+        // Connection au serveur Redis
+        Jedis jedis = new Jedis("localhost");
+        System.out.println("Connexion au serveur REDIS : " + jedis.ping());
 
-		// Ajouter une nouvelle key
-		jedis.set("key", "value");
-		jedis.set("lang", "C");
-		jedis.set("lang", "Java");
-		jedis.set("lang", "Php");
-		
-		// Retourne la valeur de la key
-		System.out.println(jedis.get("lang"));
+        // Nom des keys
+        String key1 = "legume";
+        String key2 = "lettre";
 
-		jedis.sadd(key1, "tomate", "haricot");
-		jedis.sadd(key2, "a", "b", "c", "d", "e", "f");
-		jedis.sadd(key2, "g", "h");
+        // Ajouter une nouvelle key
+        jedis.set("key", "value");
+        jedis.set("lang", "C");
+        jedis.set("lang", "Java");
+        jedis.set("lang", "Php");
 
-		System.out.println(key1 + " : " + jedis.smembers(key1));
-		System.out.println(key2 + " : " + jedis.smembers(key2));
+        // Retourne la valeur de la key
+        System.out.println(jedis.get("lang"));
 
-		System.out.println("Les 4 dernieres entrees pour " + key2 + " sont : "
-				+ nDernierEntree(key2, jedis, 4));
+        jedis.sadd(key1, "tomate", "haricot");
+        jedis.sadd(key2, "a", "b", "c", "d", "e", "f");
+        jedis.sadd(key2, "g", "h");
 
-		// System.out.println("Clean base : "+jedis.flushDB());
+        System.out.println(key1 + " : " + jedis.smembers(key1));
+        System.out.println(key2 + " : " + jedis.smembers(key2));
 
-		System.out.println("Existence de cles : " + jedis.exists("lettre"));
-		// regarder dans les projets SONAR
-		//		log.
-//		log.info("",  jedis.exists("lettre"));
-//		log.info("Existence de cles : {} ", key1);
-		
-		allKeys(jedis);
-		existkey(key2, jedis);
+        System.out.println("Les 4 dernieres entrees pour " + key2 + " sont : " + nDernierEntree(key2, jedis, 4));
 
-	}
-	
-	/**
-	 * Informe sur l'existence de la cle en base
-	 * 
-	 * @param key
-	 * @param jedis
-	 * @return
-	 */
-	public static boolean existkey(String key, Jedis jedis) {
-		
-		if (jedis.exists(key)) {
-			System.out.println("La cle : {" + key + "} est presente en base" );
-			return true;
-		}
-		return false;
-				
-	}
+        // System.out.println("Clean base : "+jedis.flushDB());
 
-	/**
-	 * Return All Keys
-	 * 
-	 * @param jedis
-	 */
-	public static void allKeys(Jedis jedis) {
-		Set<String> keys = jedis.keys("*");
-		Iterator<String> it = keys.iterator();
-		ArrayList<String> allKeys = new ArrayList<String>();
-		while (it.hasNext()) {
-			allKeys.add(it.next());
-		}
-		
-		System.out.println("Toutes les cles trouvees : " + allKeys.toString());
-	}
+        System.out.println("Existence de cles : " + jedis.exists("lettre"));
+        // regarder dans les projets SONAR
+        // log.
+        // log.info("", jedis.exists("lettre"));
+        // log.info("Existence de cles : {} ", key1);
 
-	/**
-	 * Obtenir les N dernieres entrees pour une key donnee
-	 * 
-	 * @param key
-	 * @param jedis
-	 * @param nDernierEntree
-	 * @return
-	 */
-	public static ArrayList<String> nDernierEntree(String key, Jedis jedis,
-			int nDernierEntree) {
+        allKeys(jedis);
+        existkey(key2, jedis);
 
-		ArrayList<String> lastEntree = new ArrayList<String>();
-		Set<String> set = jedis.smembers(key);
+    }
 
-		if ((set.size() > nDernierEntree)) {
-			int i = 0;
-			Iterator<String> monIterator = set.iterator();
-			while (monIterator.hasNext() & i < nDernierEntree) {
-				lastEntree.add(monIterator.next());
-				i++;
-			}
-			return lastEntree;
-		}
-		return lastEntree;
-	}
+    /**
+     * Informe sur l'existence de la cle en base
+     * 
+     * @param key
+     * @param jedis
+     * @return
+     */
+    public static boolean existkey(String key, Jedis jedis) {
+
+        if (jedis.exists(key)) {
+            System.out.println("La cle : {" + key + "} est presente en base");
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * Return All Keys
+     * 
+     * @param jedis
+     */
+    public static void allKeys(Jedis jedis) {
+        Set<String> keys = jedis.keys("*");
+        Iterator<String> it = keys.iterator();
+        ArrayList<String> allKeys = new ArrayList<String>();
+        while (it.hasNext()) {
+            allKeys.add(it.next());
+        }
+
+        System.out.println("Toutes les cles trouvees : " + allKeys.toString());
+    }
+
+    /**
+     * Obtenir les N dernieres entrees pour une key donnee
+     * 
+     * @param key
+     * @param jedis
+     * @param nDernierEntree
+     * @return
+     */
+    public static ArrayList<String> nDernierEntree(String key, Jedis jedis, int nDernierEntree) {
+
+        ArrayList<String> lastEntree = new ArrayList<String>();
+        Set<String> set = jedis.smembers(key);
+
+        if ((set.size() > nDernierEntree)) {
+            int i = 0;
+            Iterator<String> monIterator = set.iterator();
+            while (monIterator.hasNext() & i < nDernierEntree) {
+                lastEntree.add(monIterator.next());
+                i++;
+            }
+            return lastEntree;
+        }
+        return lastEntree;
+    }
 }

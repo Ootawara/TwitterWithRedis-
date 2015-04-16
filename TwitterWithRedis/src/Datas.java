@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+
+import tables.Followers;
+import tables.Following;
 import tables.Historique;
 import tables.Tweet;
 import tables.Username;
@@ -14,11 +18,16 @@ public class Datas {
     public static Tweet tweet2 = new Tweet(2, user1, "body of tweet 2, posted by user 1");
     public static Tweet tweet3 = new Tweet(3, user2, "body of tweet 3, posted by user 2");
     public static Tweet tweet4 = new Tweet(4, user3, "body of tweet 4, posted by user 3");
-    
+
     // Historique (des tweets posté par des utilisateurs)
-    //public static Historique histo = new Historique();
+    // public static Historique histo = new Historique();
+
+    public static ArrayList<Username> listFollowers = new ArrayList<Username>();
+   
     
-    
-    
-    
+//    
+//    public static Followers followers = new Followers(user1, );
+//
+//    public static Following follow = new Followers(user1, following);
+
 }
