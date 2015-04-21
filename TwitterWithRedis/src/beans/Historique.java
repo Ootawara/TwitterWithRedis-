@@ -1,21 +1,21 @@
-package tables;
+package beans;
 
 public class Historique {
 
-    private Username username;
+    private User User;
     private Tweet tweet;
 
-    public Historique(Username username, Tweet tweet) {
-        this.username = username;
+    public Historique(User User, Tweet tweet) {
+        this.User = User;
         this.tweet = tweet;
     }
 
-    public Username getUsername() {
-        return username;
+    public User getUser() {
+        return User;
     }
 
-    public void setUsername(Username username) {
-        this.username = username;
+    public void setUser(User User) {
+        this.User = User;
     }
 
     public Tweet getTweet() {

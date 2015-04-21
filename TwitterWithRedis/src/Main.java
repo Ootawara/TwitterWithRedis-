@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+
+import beans.User;
 import org.apache.log4j.Logger;
 
 import redis.clients.jedis.Jedis;
@@ -47,6 +47,14 @@ public class Main {
         allKeys(jedis);
         existkey(key2, jedis);
 
+        User user = new User("lol","loul");
+        Map<String, String> userProperties = new HashMap<String, String>();
+        userProperties.put("name", user.getName());
+        userProperties.put("password", user.getPassword());
+
+        jedis.hmset("user:" + user.getName(), userProperties);
+
+        System.out.println(jedis.hmget("user:" + user.getName(), "name","password"));
     }
 
     /**

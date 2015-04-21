@@ -1,4 +1,4 @@
-package redisDAO;
+package daoImpl;
 
 /**
  * @author Thomas
@@ -10,11 +10,11 @@ import java.util.List;
 
 import redis.clients.jedis.*;
 
-public class RedisClient {
+public class ClientRedis {
 	
 	Jedis client;
 	
-	public RedisClient(){
+	public ClientRedis(){
 		client = new Jedis("localhost");
 		
 		System.out.println("Server is running : " + client.ping());
